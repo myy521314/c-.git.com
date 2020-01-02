@@ -1,0 +1,49 @@
+## 动态页面的大致操作
+
+1.https://www.sqlite.org/**
+
+sqlite-amalgamation-3300100.zip
+
+下载这个sqlit3
+
+2.gcc -c sqlite3.c 
+
+gcc shell.c sqlite3.o -o sqlite3
+
+使用命令
+
+3.修改apache2配置
+
+在etc文件夹下,apache2,con-available下修改serve-cgi-bin.conf中的
+
+ScriptAlias /cgi-bin/ /var/www/cgi-bin/
+		<Directory "/var/www/cgi-bin">
+
+4. ln -s /etc/apache2/mods-available/cgid.conf /etc/apache2/mods-enabled/cgid.conf
+   ln -s /etc/apache2/mods-available/cgid.load /etc/apache2/mods-enabled/cgid.load
+
+   ln -s /etc/apache2/mods-available/cgi.load /etc/apache2/mods-enabled/cgi.load
+
+   以下实验:
+
+   - 在var/www/建一个文件夹,里面创建一个文本hello.c,用命令hello.cgi
+
+   - 网页打开localhost/cgi-bin/hello.cgi
+
+     
+
+   5.建一个增删改查的文件,一个html文件,还有一个跳转的页面文件
+
+   ​		进入数据库sudo sqlite3 cms.db 进行表结构的建造,insert插入内容
+
+   6.cc news.c sqlite3.o -lpthread -ldl   终端命令进行链接
+
+   7.网页搜索localhost/cgi-bin/文件.cgi 就可以看到所写内容
+
+   注: 权限修改:sudo chmod 777 哪个目录
+
+   ​		生成cgi文件:sudo cc 文件名 -o 文件.cgi
+
+   ​		进入数据库:sudo sqlite3 cms.db
+
+   ​		每个文件里面都要引入"sqlite3.h"文件,而且这些文件都要是放在一个文件夹的
